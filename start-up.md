@@ -17,6 +17,19 @@ Crear una base profesional, en español y GENÉRICA para cualquier proyecto, que
 
 ## Fase 1 - Análisis completo (obligatoria)
 
+### Paso 0 - Preguntas obligatorias al iniciar
+
+Antes de analizar o proponer cambios, la IA debe preguntar y confirmar:
+
+- Tipo de proyecto (web, API, mobile, desktop, librería, monorepo, etc.).
+- Arquitectura esperada o existente (por capas, hexagonal, clean, modular, feature-first, etc.).
+
+Si el usuario no lo define con claridad:
+
+- La IA debe proponer una hipótesis inicial basada en el repo.
+- Debe marcarla explícitamente como "suposición a validar".
+- No debe cerrar AGENTS/skills finales sin esta validación.
+
 Antes de escribir cualquier AGENTS/skill:
 
 - Detectar stack, framework, estructura de carpetas y tipo de proyecto.
