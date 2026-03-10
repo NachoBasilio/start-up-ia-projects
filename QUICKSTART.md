@@ -6,7 +6,7 @@ Guia corta para aplicar esta base en cualquier proyecto, sin CI y sin lock-in.
 
 Copia estos archivos/carpetas al repo donde vas a trabajar:
 
-- `start-up.md`
+- `START-UP.md`
 - `AGENTS.md`
 - `Skills/`
 - `scripts/validate-skills.sh`
@@ -18,7 +18,7 @@ Usa OpenCode o Claude Code sobre el repo objetivo.
 Prompt recomendado:
 
 ```text
-Usa start-up.md como protocolo. Analiza el repo completo, propone AGENTS.md por capas,
+Usa START-UP.md como protocolo. Analiza el repo completo, propone AGENTS.md por capas,
 y crea/ajusta skills en formato Skills/<nombre>/SKILL.md segun contexto real.
 No inventes comandos. Mantene reglas verificables y anti-ruido.
 ```
@@ -55,5 +55,5 @@ Si falla algo, corregi `AGENTS.md` o `Skills/*/SKILL.md` y vuelve a validar.
 ## Referencias
 
 - `README.md` - vision general
-- `start-up.md` - protocolo completo
+- `START-UP.md` - protocolo completo
 - `MIGRACION.md` - plan de evolucion y retiro de legacy

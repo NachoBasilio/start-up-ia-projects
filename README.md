@@ -10,7 +10,7 @@ Este repositorio define un flujo genérico para que cualquier agente:
 
 ## Qué incluye
 
-- `start-up.md`  
+- `START-UP.md`  
   Protocolo principal por fases para diseñar `AGENTS.md` y skills en cualquier repo.
 - `Skills/skill-creator/SKILL.md`  
   Skill base para crear skills nuevas en formato moderno.
@@ -41,7 +41,7 @@ Compatibilidad:
 
 ## Flujo recomendado
 
-1. Copiá `start-up.md` en el repo objetivo.
+1. Copiá `START-UP.md` en el repo objetivo.
 2. Ejecutá el Paso 0 obligatorio: preguntar tipo de proyecto y arquitectura.
 3. Hacé análisis completo del repo (Fase 1).
 4. Diseñá `AGENTS.md` por capas (Fase 2).
@@ -55,7 +55,7 @@ Compatibilidad:
 Este repo esta pensado para uso directo por cualquier persona o equipo:
 
 1. Clona o descarga este repositorio.
-2. Copia `start-up.md`, `AGENTS.md` y `Skills/` al proyecto objetivo.
+2. Copia `START-UP.md`, `AGENTS.md` y `Skills/` al proyecto objetivo.
 3. Abri ese proyecto con OpenCode o Claude Code.
 4. Pedi crear/ajustar `AGENTS.md` y skills segun el contexto real del repo.
 5. Corre localmente `./scripts/validate-skills.sh` para validar contrato y migracion.

@@ -2,7 +2,7 @@
 name: skill-sync
 description: >
   Audita y sincroniza metadata de skills para mantener coherencia entre
-  Skills/*/SKILL.md, AGENTS.md y start-up.md. Usar despues de crear/modificar
+  Skills/*/SKILL.md, AGENTS.md y START-UP.md. Usar despues de crear/modificar
   skills o al migrar desde formato legacy.
 license: Apache-2.0
 metadata:
@@ -30,7 +30,7 @@ metadata:
 ## Cuando usar
 
 - Despues de crear o modificar cualquier skill.
-- Cuando AGENTS/README/start-up quedan desalineados con Skills.
+- Cuando AGENTS/README/START-UP quedan desalineados con Skills.
 - Antes de cerrar una migracion legacy a formato moderno.
 
 ## Validaciones obligatorias
@@ -41,7 +41,7 @@ metadata:
 4. Ciclo de vida: si `skill_type=capability_uplift`, `review_by` es obligatorio y `sunset_at` recomendado.
 5. Permanencia: si `skill_type=encoded_preference`, no exigir caducidad por mejora de modelo.
 6. Casing correcto: usar `Skills/` (no `skills/`).
-7. Referencias vivas: AGENTS/README/start-up apuntan a rutas existentes.
+7. Referencias vivas: AGENTS/README/START-UP apuntan a rutas existentes.
 8. Compatibilidad: archivos legacy `Skills/*.md` solo como redirect.
 
 ## Reglas criticas

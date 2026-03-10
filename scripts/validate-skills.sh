@@ -122,7 +122,7 @@ check_core_docs() {
   local required=(
     "$ROOT_DIR/AGENTS.md"
     "$ROOT_DIR/README.md"
-    "$ROOT_DIR/start-up.md"
+    "$ROOT_DIR/START-UP.md"
     "$ROOT_DIR/MIGRACION.md"
   )
 

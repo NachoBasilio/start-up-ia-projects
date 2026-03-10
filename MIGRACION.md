@@ -45,7 +45,7 @@ Toda skill debe tener `metadata.skill_type`:
 ### Fase 1 - Inventario
 
 - Listar todas las skills activas y legacy.
-- Detectar referencias en `README.md`, `AGENTS.md`, `start-up.md`.
+- Detectar referencias en `README.md`, `AGENTS.md`, `START-UP.md`.
 - Marcar gaps de metadata obligatoria.
 
 Salida esperada:
@@ -80,11 +80,11 @@ Salida esperada:
 
 - Actualizar `AGENTS.md` con fuente de verdad y reglas de compatibilidad.
 - Actualizar `README.md` para onboarding en espanol.
-- Mantener `start-up.md` como protocolo canonico.
+- Mantener `START-UP.md` como protocolo canonico.
 
 Salida esperada:
 
-- No hay contradicciones entre AGENTS, README, start-up y skills.
+- No hay contradicciones entre AGENTS, README, START-UP y skills.
 
 ### Fase 5 - Retiro de legacy
 

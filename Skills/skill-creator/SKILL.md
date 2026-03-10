@@ -42,7 +42,7 @@ metadata:
 1. Carpeta `Skills/<skill-name>/`.
 2. Archivo `Skills/<skill-name>/SKILL.md` con frontmatter completo.
 3. Recursos opcionales (`assets/`, `references/`, `scripts/`) solo si aportan valor real.
-4. Actualizacion de referencias en `README.md`, `AGENTS.md` o `start-up.md` cuando aplique.
+4. Actualizacion de referencias en `README.md`, `AGENTS.md` o `START-UP.md` cuando aplique.
 5. Explicacion breve en espanol para usuarios nuevos: que resuelve la skill y por que su tipo importa.
 
 ## Frontmatter minimo obligatorio
@@ -93,7 +93,7 @@ Regla dura:
 - [ ] `skill_type` definido correctamente.
 - [ ] Si es `capability_uplift`, tiene `review_by`.
 - [ ] Hay criterios de uso/no uso.
-- [ ] La skill no contradice `start-up.md`.
+- [ ] La skill no contradice `START-UP.md`.
 - [ ] Se actualizaron referencias del repo.
 
 ## Recursos
