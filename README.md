@@ -20,6 +20,8 @@ Este repositorio define un flujo genérico para que cualquier agente:
   Recursos opcionales por skill (plantillas, scripts, guias).
 - `MIGRACION.md`  
   Plan por fases para mantener AGENTS y skills en formato moderno sin arrastrar deuda legacy.
+- `QUICKSTART.md`  
+  Guia corta para aplicarlo en un repo nuevo en 5 minutos.
 
 ## Formato moderno de skills
 
