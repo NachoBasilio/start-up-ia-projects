@@ -1,6 +1,6 @@
 # Start-up para cualquier IA
 
-Usá este archivo como protocolo de arranque antes de crear o refactorizar `AGENTS.md` y `skills`.
+Usa este archivo como protocolo de arranque antes de crear o refactorizar `AGENTS.md` y `Skills`.
 
 ## Objetivo
 
@@ -90,15 +90,81 @@ Checklist anti-redundancia obligatorio:
 - [ ] No hay listas extensas de herramientas/comandos sin condición de uso.
 - [ ] Se define precedencia de fuentes para resolver contradicciones.
 
-## Fase 3 - Diseño de skills
+## Fase 3 - Diseno de skills
 
-Crear skills accionables (no teóricos):
+Crear skills accionables (no teoricos):
 
-- ubicación: `skills/<nombre>/SKILL.md`
+- ubicacion obligatoria: `Skills/<nombre>/SKILL.md`
 - frontmatter + trigger claro
 - reglas críticas
 - checklist rápido
 - comandos de validación cuando aplique
+
+### Contrato de Skill moderna (obligatorio)
+
+Toda skill nueva debe cumplir este contrato:
+
+- carpeta por skill: `Skills/<nombre>/`
+- archivo principal: `Skills/<nombre>/SKILL.md`
+- recursos opcionales: `assets/`, `references/`, `scripts/`
+- evitar skills nuevas en formato legacy `Skills/*.md`
+
+Frontmatter minimo obligatorio en `SKILL.md`:
+
+```yaml
+---
+name: <skill-name>
+description: >
+  Que hace la skill y en que contexto debe activarse.
+license: Apache-2.0
+metadata:
+  author: <equipo-o-org>
+  version: "1.0.0"
+  scope: [root]
+  auto_invoke:
+    - "contexto o accion concreta"
+  owner: <responsable>
+  skill_type: capability_uplift # capability_uplift|encoded_preference
+  review_by: "YYYY-MM-DD" # obligatorio para capability_uplift
+  sunset_at: null # opcional, recomendado para capability_uplift
+  risk_level: low # low|medium|high
+  allowed_tools: []
+---
+```
+
+Reglas de seguridad:
+
+- Si la skill puede afectar prod/billing/deploy: requerir modo manual y checklist explicito.
+- `allowed_tools` debe ser el minimo necesario (no abrir todo por defecto).
+- No ejecutar scripts externos no versionados dentro del repo.
+
+Calidad de skill (obligatoria):
+
+- Definir casos happy path, edge y negativo.
+- Definir metricas minimas: pass rate, tiempo, tokens.
+- Volver a evaluar cuando cambia la skill o su version mayor.
+
+### Taxonomia obligatoria de skills
+
+Toda skill debe declarar su tipo en metadata:
+
+- `skill_type: capability_uplift`
+- `skill_type: encoded_preference`
+
+Reglas por tipo:
+
+- `capability_uplift`:
+  - Ensena capacidades que pueden quedar obsoletas cuando el modelo mejora.
+  - Debe tener fecha de revision o caducidad (`review_by` o `sunset_at`).
+  - Debe incluir plan de retiro simplificado cuando ya no agrega valor.
+- `encoded_preference`:
+  - Codifica preferencias estables de equipo/producto (estilo, formato, convenciones propias).
+  - No caduca por mejora de modelo; se mantiene hasta cambio explicito de negocio/equipo.
+  - Debe priorizar coherencia y consistencia de largo plazo.
+
+Regla pedagogica para nuevos usuarios:
+
+- Toda skill nueva debe explicar en espanol, al inicio, que problema resuelve y por que su tipo (`capability_uplift` o `encoded_preference`) importa.
 
 Siempre enlazar skills nuevas en `AGENTS.md`.
 
@@ -106,17 +172,26 @@ Siempre enlazar skills nuevas en `AGENTS.md`.
 
 - **`skill-creator`** (crear skills):
   - Úsalo cuando necesites crear una skill nueva reusable para el proyecto.
-  - Define estructura estándar: `skills/<nombre>/SKILL.md` (+ `assets/` y `references/` opcionales).
+  - Define estructura estandar: `Skills/<nombre>/SKILL.md` (+ `assets/` y `references/` opcionales).
   - Incluye frontmatter completo, reglas críticas, ejemplos mínimos y comandos.
   - Evitá skills para casos triviales o one-off.
-  - Referencia local: `Skills/skill-creator.md`
+  - Referencia local: `Skills/skill-creator/SKILL.md`
 
 - **`skill-sync`** (sincronizar metadatos en AGENTS):
   - Úsalo después de crear/modificar una skill.
   - Exige `metadata.scope` y `metadata.auto_invoke` en `SKILL.md`.
   - Sincroniza automáticamente tablas de auto-invocación en `AGENTS.md`.
   - Ejecutá el comando/script de sincronización que exista en el proyecto (por ejemplo el `sync.sh` del skill).
-  - Referencia local: `Skills/skill-sync.md`
+  - Referencia local: `Skills/skill-sync/SKILL.md`
+
+### Migracion y compatibilidad
+
+Para no romper proyectos existentes:
+
+- Se permite leer `Skills/*.md` solo como formato legacy temporal.
+- Toda creacion nueva debe usar `Skills/<nombre>/SKILL.md`.
+- Si existe version legacy y version nueva, la version nueva es la fuente de verdad.
+- Unificar siempre casing de rutas en Linux: `Skills/` (S mayuscula).
 
 Nota de adaptación automática:
 
@@ -152,5 +227,6 @@ Luego resumir cambios por grupos lógicos.
 
 - AGENTS en español, por capas y sin contradicciones.
 - Skills profesionales y personalizadas al proyecto.
+- Plan de migracion vivo en `MIGRACION.md` para evitar deuda de formato y reglas obsoletas.
 - Checklist operativo para mantener calidad.
 - Resumen claro de qué se creó, por qué y dónde.

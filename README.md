@@ -12,10 +12,30 @@ Este repositorio define un flujo genérico para que cualquier agente:
 
 - `start-up.md`  
   Protocolo principal por fases para diseñar `AGENTS.md` y skills en cualquier repo.
-- `Skills/skill-creator.md`  
-  Guía traducida y operativa para crear skills nuevas.
-- `Skills/skill-sync.md`  
-  Guía traducida y operativa para sincronizar metadatos y auto-invocación de skills.
+- `Skills/skill-creator/SKILL.md`  
+  Skill base para crear skills nuevas en formato moderno.
+- `Skills/skill-sync/SKILL.md`  
+  Skill base para auditar y sincronizar metadatos de skills.
+- `Skills/*/assets` y `Skills/*/references`  
+  Recursos opcionales por skill (plantillas, scripts, guias).
+- `MIGRACION.md`  
+  Plan por fases para mantener AGENTS y skills en formato moderno sin arrastrar deuda legacy.
+
+## Formato moderno de skills
+
+Este repo usa como formato canonico:
+
+`Skills/<skill-name>/SKILL.md`
+
+Compatibilidad:
+
+- `Skills/*.md` queda como legacy temporal para no romper integraciones.
+- La fuente de verdad siempre es `Skills/*/SKILL.md`.
+
+### Tipos de skills (clave para arrancar bien)
+
+- `capability_uplift`: agrega capacidades tecnicas que pueden quedar viejas cuando los modelos mejoran; deben revisarse y caducar cuando ya no aportan.
+- `encoded_preference`: codifica preferencias estables del equipo/producto; no caducan por mejora de modelo, solo cambian si cambia tu forma de trabajar.
 
 ## Flujo recomendado
 
@@ -26,6 +46,19 @@ Este repositorio define un flujo genérico para que cualquier agente:
 5. Diseñá/ajustá skills (Fase 3), apoyándote en `Skills/`.
 6. Verificá coherencia técnica y documental (Fase 4).
 7. Ejecutá validaciones técnicas del stack activo (Fase 5).
+8. Ejecutá validacion de contrato de skills: `./scripts/validate-skills.sh`.
+
+## Uso local (sin CI, sin lock-in)
+
+Este repo esta pensado para uso directo por cualquier persona o equipo:
+
+1. Clona o descarga este repositorio.
+2. Copia `start-up.md`, `AGENTS.md` y `Skills/` al proyecto objetivo.
+3. Abri ese proyecto con OpenCode o Claude Code.
+4. Pedi crear/ajustar `AGENTS.md` y skills segun el contexto real del repo.
+5. Corre localmente `./scripts/validate-skills.sh` para validar contrato y migracion.
+
+No requiere pipeline, CI ni configuracion de plataforma para funcionar.
 
 ## Regla de calidad no negociable
 
