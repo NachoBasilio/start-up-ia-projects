@@ -6,6 +6,8 @@ Usá este archivo como protocolo de arranque antes de crear o refactorizar `AGEN
 
 Crear una base profesional, en español y GENÉRICA para cualquier proyecto, que luego se adapte al contexto real después de un análisis completo del repositorio.
 
+Incorporar un criterio de minimalismo operativo para `AGENTS.md`: incluir solo señales de alto valor y evitar texto redundante.
+
 ## Reglas de trabajo
 
 1. Todo en español claro y profesional.
@@ -14,6 +16,21 @@ Crear una base profesional, en español y GENÉRICA para cualquier proyecto, que
 4. No romper comportamiento actual del proyecto.
 5. Documentación y skills deben reflejar la realidad (si no se cumple, ajustar texto o código).
 6. Para CUALQUIER lenguaje del proyecto, definir y ejecutar un validador de calidad de código (linter y/o análisis equivalente) de forma obligatoria.
+7. `AGENTS.md` debe ser corto, específico y verificable: no copiar contenido que ya exista en `README`, `docs` o skills.
+8. Evitar sobre-instrucciones: cada regla en `AGENTS.md` debe reducir decisiones, no abrir ramas nuevas.
+
+## Principio anti-ruido para AGENTS.md
+
+Basado en evidencia empírica reciente (arXiv:2602.11988), más contexto no implica mejores resultados para agentes. Por defecto:
+
+- No agregar "overview" largo de carpetas o componentes si es inferible del repo.
+- No duplicar comandos o políticas que ya estén bien documentadas.
+- No meter procesos completos en `AGENTS.md`; referenciar la fuente canónica.
+- Priorizar restricciones de alto impacto: seguridad, contratos, compatibilidad y validaciones mínimas.
+
+Excepción controlada:
+
+- Si el repo tiene documentación muy pobre o inexistente, ampliar `AGENTS.md` solo con lo mínimo necesario para ejecutar setup/tests.
 
 ## Fase 1 - Análisis completo (obligatoria)
 
@@ -52,12 +69,26 @@ Crear jerarquía por contexto:
 - `AGENTS.md` por áreas importantes (`src`, `components`, `routes`, `services`, etc.), según corresponda.
 - Regla de precedencia: la guía más cercana al código manda.
 
+Diseño recomendado (minimalista):
+
+- 4 a 6 secciones máximas.
+- 3 a 5 reglas obligatorias máximas.
+- Una sola línea de criterio de finalización verificable (`Definition of done`).
+- Referencias explícitas a documentos fuente en vez de duplicar contenido.
+
 Cada AGENTS debe incluir:
 
 - alcance,
 - reglas específicas,
 - auto-invocar skills,
 - checklist obligatorio.
+
+Checklist anti-redundancia obligatorio:
+
+- [ ] Cada regla aporta información no presente en `README`, `docs` o skills.
+- [ ] No hay secciones narrativas largas sin decisión operativa.
+- [ ] No hay listas extensas de herramientas/comandos sin condición de uso.
+- [ ] Se define precedencia de fuentes para resolver contradicciones.
 
 ## Fase 3 - Diseño de skills
 
