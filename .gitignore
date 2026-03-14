@@ -1,0 +1,16 @@
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+
+# Node/package managers
+node_modules/
+
+# Build artifacts
+dist/
+build/
+
+# Temp/logs
+*.log
+tmp/
+temp/

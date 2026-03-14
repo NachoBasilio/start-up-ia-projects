@@ -1,6 +1,15 @@
 # Quickstart (5 minutos)
 
-Guia corta para aplicar esta base en cualquier proyecto, sin CI y sin lock-in.
+Guia corta para aplicar esta base en cualquier proyecto, con validacion local + CI y sin lock-in.
+
+## Paso 0 (OBLIGATORIO) - Confirmar contexto antes de tocar nada
+
+Antes de analizar o proponer cambios, confirma explicitamente:
+
+- tipo de proyecto (web, API, mobile, desktop, libreria, monorepo, etc.),
+- arquitectura esperada/existente (capas, hexagonal, clean, modular, feature-first, etc.).
+
+Si no esta claro, deja una hipotesis marcada como `suposicion a validar` y no cierres AGENTS/skills finales hasta confirmarlo.
 
 ## 1) Copia base al proyecto objetivo
 

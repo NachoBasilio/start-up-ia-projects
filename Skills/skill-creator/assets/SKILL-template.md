@@ -48,5 +48,8 @@ Explica brevemente por que ese tipo aplica y si debe caducar o mantenerse.
 ## Comandos
 
 ```bash
-# pending: definir comandos reales del proyecto
+# Reemplaza este bloque por comandos reales y verificables del repo objetivo.
+# Ejemplo minimo:
+# ./scripts/validate-skills.sh --dry-run
+# ./scripts/validate-skills.sh
 ```

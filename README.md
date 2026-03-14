@@ -48,9 +48,9 @@ Compatibilidad:
 5. Diseñá/ajustá skills (Fase 3), apoyándote en `Skills/`.
 6. Verificá coherencia técnica y documental (Fase 4).
 7. Ejecutá validaciones técnicas del stack activo (Fase 5).
-8. Ejecutá validacion de contrato de skills: `./scripts/validate-skills.sh`.
+8. Ejecutá validacion de contrato de skills (comando canonico): `./scripts/validate-skills.sh`.
 
-## Uso local (sin CI, sin lock-in)
+## Uso local (sin lock-in)
 
 Este repo esta pensado para uso directo por cualquier persona o equipo:
 
@@ -58,9 +58,30 @@ Este repo esta pensado para uso directo por cualquier persona o equipo:
 2. Copia `START-UP.md`, `AGENTS.md` y `Skills/` al proyecto objetivo.
 3. Abri ese proyecto con OpenCode o Claude Code.
 4. Pedi crear/ajustar `AGENTS.md` y skills segun el contexto real del repo.
-5. Corre localmente `./scripts/validate-skills.sh` para validar contrato y migracion.
+5. Corre localmente el validador canonico:
 
-No requiere pipeline, CI ni configuracion de plataforma para funcionar.
+```bash
+./scripts/validate-skills.sh
+```
+
+Ejemplo de salida esperada:
+
+```text
+[INFO] Validando skills en /ruta/al/repo
+[INFO] Validando /ruta/al/repo/Skills/skill-creator/SKILL.md
+[INFO] Validando /ruta/al/repo/Skills/skill-sync/SKILL.md
+
+Resumen: 0 error(es), 0 warning(s)
+```
+
+Tambien hay enforcement en CI (GitHub Actions) para `push` y `pull_request`.
+
+No requiere configuracion de plataforma propietaria para funcionar.
+
+## Validacion automatizada
+
+- Validador canonico: `./scripts/validate-skills.sh`
+- Tests del validador: `./tests/validate-skills.test.sh`
 
 ## Regla de calidad no negociable
 
