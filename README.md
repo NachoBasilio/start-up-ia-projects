@@ -22,6 +22,12 @@ Este repositorio define un flujo genérico para que cualquier agente:
   Plan por fases para mantener AGENTS y skills en formato moderno sin arrastrar deuda legacy.
 - `QUICKSTART.md`  
   Guia corta para aplicarlo en un repo nuevo en 5 minutos.
+- `scripts/validate-skills.sh`  
+  Validador canonico del contrato de skills y coherencia documental minima.
+- `tests/validate-skills.test.sh`  
+  Suite Bash del validador para cubrir casos happy path, edge y negativos.
+- `.github/workflows/validate-skills.yml`  
+  Enforcement en CI para `push` y `pull_request`.
 
 ## Formato moderno de skills
 
@@ -55,10 +61,11 @@ Compatibilidad:
 Este repo esta pensado para uso directo por cualquier persona o equipo:
 
 1. Clona o descarga este repositorio.
-2. Copia `START-UP.md`, `AGENTS.md` y `Skills/` al proyecto objetivo.
-3. Abri ese proyecto con OpenCode o Claude Code.
-4. Pedi crear/ajustar `AGENTS.md` y skills segun el contexto real del repo.
-5. Corre localmente el validador canonico:
+2. Copia `START-UP.md`, `AGENTS.md`, `Skills/` y `scripts/validate-skills.sh` al proyecto objetivo.
+3. Si queres enforcement en CI, copia tambien `.github/workflows/validate-skills.yml`.
+4. Abri ese proyecto con OpenCode o Claude Code.
+5. Pedi crear/ajustar `AGENTS.md` y skills segun el contexto real del repo.
+6. Corre localmente el validador canonico:
 
 ```bash
 ./scripts/validate-skills.sh
@@ -74,13 +81,14 @@ Ejemplo de salida esperada:
 Resumen: 0 error(es), 0 warning(s)
 ```
 
-Tambien hay enforcement en CI (GitHub Actions) para `push` y `pull_request`.
+Si copias el workflow incluido, tambien tenes enforcement en CI (GitHub Actions) para `push` y `pull_request`.
 
 No requiere configuracion de plataforma propietaria para funcionar.
 
 ## Validacion automatizada
 
 - Validador canonico: `./scripts/validate-skills.sh`
+- Auditoria rapida: `./scripts/validate-skills.sh --dry-run`
 - Tests del validador: `./tests/validate-skills.test.sh`
 
 ## Regla de calidad no negociable
