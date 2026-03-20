@@ -1,232 +1,179 @@
-# Start-up para cualquier IA
+# START-UP: Protocolo para agentes
 
-Usa este archivo como protocolo de arranque antes de crear o refactorizar `AGENTS.md` y `Skills`.
+Usa este protocolo antes de configurar `AGENTS.md` y `Skills/` en cualquier proyecto.
 
 ## Objetivo
 
-Crear una base profesional, en español y GENÉRICA para cualquier proyecto, que luego se adapte al contexto real después de un análisis completo del repositorio.
-
-Incorporar un criterio de minimalismo operativo para `AGENTS.md`: incluir solo señales de alto valor y evitar texto redundante.
+Base profesional y GENÉRICA que se adapta al contexto real después del análisis del repo. Criterio anti-ruido: solo reglas de alto valor, cero redundancia.
 
 ## Reglas de trabajo
 
-1. Todo en español claro y profesional.
-2. "Hazlo simple, pero no fácil": evitar atajos frágiles.
-3. No inventar reglas; derivarlas del código, estructura y convenciones existentes.
-4. No romper comportamiento actual del proyecto.
-5. Documentación y skills deben reflejar la realidad (si no se cumple, ajustar texto o código).
-6. Para CUALQUIER lenguaje del proyecto, definir y ejecutar un validador de calidad de código (linter y/o análisis equivalente) de forma obligatoria.
-7. `AGENTS.md` debe ser corto, específico y verificable: no copiar contenido que ya exista en `README`, `docs` o skills.
-8. Evitar sobre-instrucciones: cada regla en `AGENTS.md` debe reducir decisiones, no abrir ramas nuevas.
+1. **Español claro y profesional** en toda la documentación
+2. **"Simple, no fácil"**: evitar atajos frágiles
+3. **No inventar**: derivar reglas del código/estructura existente
+4. **No romper**: mantener comportamiento actual
+5. **Reflejar realidad**: documentación = código real
+6. **Validador obligatorio**: linter/análisis para CUALQUIER lenguaje
+7. **AGENTS.md minimalista**: específico y verificable, sin duplicar README/docs
+8. **Anti-sobre-instrucción**: cada regla debe reducir decisiones, no abrirlas
 
-## Principio anti-ruido para AGENTS.md
+## Principio anti-ruido
 
-Basado en evidencia empírica reciente (arXiv:2602.11988), más contexto no implica mejores resultados para agentes. Por defecto:
+**Evidencia**: más contexto ≠ mejores resultados (arXiv:2602.11988).
 
-- No agregar "overview" largo de carpetas o componentes si es inferible del repo.
-- No duplicar comandos o políticas que ya estén bien documentadas.
-- No meter procesos completos en `AGENTS.md`; referenciar la fuente canónica.
-- Priorizar restricciones de alto impacto: seguridad, contratos, compatibilidad y validaciones mínimas.
+Por defecto NO agregar:
+- Overview largo si es inferible del repo
+- Comandos/políticas ya documentadas
+- Procesos completos (referenciar fuente canónica)
 
-Excepción controlada:
+SÍ agregar:
+- Restricciones de alto impacto: seguridad, contratos, compatibilidad
+- Validaciones mínimas obligatorias
 
-- Si el repo tiene documentación muy pobre o inexistente, ampliar `AGENTS.md` solo con lo mínimo necesario para ejecutar setup/tests.
+**Excepción**: si el repo tiene documentación pobre, ampliar `AGENTS.md` solo con lo mínimo para setup/tests.
 
-## Fase 1 - Análisis completo (obligatoria)
+## FASE 1: Análisis obligatorio
 
-### Paso 0 - Preguntas obligatorias al iniciar
+### Preguntas iniciales (OBLIGATORIO)
 
-Antes de analizar o proponer cambios, la IA debe preguntar y confirmar:
+Antes de analizar, confirmar con el usuario:
+- **Tipo**: web, API, mobile, desktop, librería, monorepo
+- **Arquitectura**: capas, hexagonal, clean, modular, feature-first
 
-- Tipo de proyecto (web, API, mobile, desktop, librería, monorepo, etc.).
-- Arquitectura esperada o existente (por capas, hexagonal, clean, modular, feature-first, etc.).
+Si no está claro:
+- Proponer hipótesis basada en el repo
+- Marcarla como **"suposición a validar"**
+- NO cerrar AGENTS/skills sin validación
 
-Si el usuario no lo define con claridad:
+### Análisis del repo
+- Detectar stack, framework, estructura
+- Revisar configuración real (package.json, lint, build)
+- Buscar documentación existente
+- Analizar convenciones de commits (`git log`)
+- Identificar patrones críticos
 
-- La IA debe proponer una hipótesis inicial basada en el repo.
-- Debe marcarla explícitamente como "suposición a validar".
-- No debe cerrar AGENTS/skills finales sin esta validación.
+**Salida mínima**:
+- Mapa de carpetas clave
+- Reglas verificables
+- Lista de skills necesarias
 
-Antes de escribir cualquier AGENTS/skill:
+## FASE 2: Diseño de AGENTS.md
 
-- Detectar stack, framework, estructura de carpetas y tipo de proyecto.
-- Revisar configuración real (`package.json`, lint, release, build, rutas, etc.).
-- Buscar documentación existente (`AGENTS.md`, `notes`, `README`, skills previas).
-- Detectar convenciones reales de commits con `git log`.
-- Identificar zonas críticas y patrones repetidos del proyecto.
+### Estructura jerárquica
+- `AGENTS.md` raíz (reglas globales + tabla skills + auto-invocación)
+- `AGENTS.md` por áreas (`src/`, `components/`, etc.) según corresponda
+- **Precedencia**: guía más cercana al código manda
 
-Salida mínima de esta fase:
+### Diseño minimalista
+- **Máximo 6 secciones**
+- **Máximo 5 reglas obligatorias**
+- **Una línea de criterio verificable** (Definition of done)
+- **Referencias explícitas** vs duplicar contenido
 
-- Mapa de carpetas clave.
-- Reglas verificables (las que sí se pueden cumplir y auditar).
-- Lista de skills necesarias y dónde aplican.
+### Contenido obligatorio
+- Alcance
+- Reglas específicas  
+- Auto-invocar skills
+- Checklist obligatorio
 
-## Fase 2 - Diseño de AGENTS.md
+### Anti-redundancia checklist
+- [ ] Cada regla aporta info no presente en README/docs/skills
+- [ ] Sin secciones narrativas sin decisión operativa
+- [ ] Sin listas extensas de herramientas sin condición de uso
+- [ ] Precedencia definida para resolver contradicciones
 
-Crear jerarquía por contexto:
+## FASE 3: Diseño de skills
 
-- `AGENTS.md` en raíz (reglas globales + tabla de skills + auto-invocación).
-- `AGENTS.md` por áreas importantes (`src`, `components`, `routes`, `services`, etc.), según corresponda.
-- Regla de precedencia: la guía más cercana al código manda.
+### Ubicación obligatoria
+`Skills/<nombre>/SKILL.md` con frontmatter + trigger + reglas + checklist + comandos
 
-Diseño recomendado (minimalista):
+### Contrato moderno obligatorio
 
-- 4 a 6 secciones máximas.
-- 3 a 5 reglas obligatorias máximas.
-- Una sola línea de criterio de finalización verificable (`Definition of done`).
-- Referencias explícitas a documentos fuente en vez de duplicar contenido.
+**Estructura**:
+- `Skills/<nombre>/` (carpeta por skill)
+- `Skills/<nombre>/SKILL.md` (principal)
+- `assets/`, `references/`, `scripts/` (opcionales)
 
-Cada AGENTS debe incluir:
-
-- alcance,
-- reglas específicas,
-- auto-invocar skills,
-- checklist obligatorio.
-
-Checklist anti-redundancia obligatorio:
-
-- [ ] Cada regla aporta información no presente en `README`, `docs` o skills.
-- [ ] No hay secciones narrativas largas sin decisión operativa.
-- [ ] No hay listas extensas de herramientas/comandos sin condición de uso.
-- [ ] Se define precedencia de fuentes para resolver contradicciones.
-
-## Fase 3 - Diseno de skills
-
-Crear skills accionables (no teoricos):
-
-- ubicacion obligatoria: `Skills/<nombre>/SKILL.md`
-- frontmatter + trigger claro
-- reglas críticas
-- checklist rápido
-- comandos de validación cuando aplique
-
-### Contrato de Skill moderna (obligatorio)
-
-Toda skill nueva debe cumplir este contrato:
-
-- carpeta por skill: `Skills/<nombre>/`
-- archivo principal: `Skills/<nombre>/SKILL.md`
-- recursos opcionales: `assets/`, `references/`, `scripts/`
-- evitar skills nuevas en formato legacy `Skills/*.md`
-
-Frontmatter minimo obligatorio en `SKILL.md`:
-
+**Frontmatter mínimo**:
 ```yaml
 ---
 name: <skill-name>
 description: >
-  Que hace la skill y en que contexto debe activarse.
+  Qué hace y contexto de activación
 license: Apache-2.0
 metadata:
   author: <equipo-o-org>
   version: "1.0.0"
   scope: [root]
   auto_invoke:
-    - "contexto o accion concreta"
+    - "contexto concreto"
   owner: <responsable>
   skill_type: capability_uplift # capability_uplift|encoded_preference
   review_by: "YYYY-MM-DD" # obligatorio para capability_uplift
-  sunset_at: null # opcional, recomendado para capability_uplift
   risk_level: low # low|medium|high
   allowed_tools: []
 ---
 ```
 
-Reglas de seguridad:
+### Taxonomía OBLIGATORIA
 
-- Si la skill puede afectar prod/billing/deploy: requerir modo manual y checklist explicito.
-- `allowed_tools` debe ser el minimo necesario (no abrir todo por defecto).
-- No ejecutar scripts externos no versionados dentro del repo.
+**capability_uplift**:
+- Capacidades técnicas temporales
+- DEBE tener `review_by` (fecha de revisión)
+- RECOMENDADO `sunset_at` (plan de retiro)
 
-Calidad de skill (obligatoria):
+**encoded_preference**:
+- Preferencias estables de equipo/producto
+- NO caduca por mejora de modelo
+- Solo cambia si cambia decisión de negocio/equipo
 
-- Definir casos happy path, edge y negativo.
-- Definir metricas minimas: pass rate, tiempo, tokens.
-- Volver a evaluar cuando cambia la skill o su version mayor.
+### Reglas de seguridad
+- Prod/billing/deploy: requerir modo manual + checklist
+- `allowed_tools` mínimo necesario
+- No ejecutar scripts no versionados
 
-### Taxonomia obligatoria de skills
+### Calidad obligatoria
+- Casos: happy path, edge, negativo
+- Métricas: pass rate, tiempo, tokens
+- Re-evaluar en cambios de versión mayor
 
-Toda skill debe declarar su tipo en metadata:
+### Skills de referencia
 
-- `skill_type: capability_uplift`
-- `skill_type: encoded_preference`
+**skill-creator** (`Skills/skill-creator/SKILL.md`):
+- Crear skills reusables con estructura estándar
+- Frontmatter completo + reglas + ejemplos + comandos
+- Evitar skills triviales o one-off
 
-Reglas por tipo:
+**skill-sync** (`Skills/skill-sync/SKILL.md`):  
+- Sincronizar metadata después de crear/modificar
+- Auto-generar tablas en `AGENTS.md`
+- Mantener coherencia entre docs
 
-- `capability_uplift`:
-  - Ensena capacidades que pueden quedar obsoletas cuando el modelo mejora.
-  - Debe tener fecha de revision o caducidad (`review_by` o `sunset_at`).
-  - Debe incluir plan de retiro simplificado cuando ya no agrega valor.
-- `encoded_preference`:
-  - Codifica preferencias estables de equipo/producto (estilo, formato, convenciones propias).
-  - No caduca por mejora de modelo; se mantiene hasta cambio explicito de negocio/equipo.
-  - Debe priorizar coherencia y consistencia de largo plazo.
+### Compatibilidad legacy
+- `Skills/*.md` solo como redirect temporal
+- Nueva creación: usar `Skills/<nombre>/SKILL.md`
+- Si existen ambas versiones: nueva = fuente de verdad
+- Casing correcto: `Skills/` (S mayúscula)
 
-Regla pedagogica para nuevos usuarios:
+## FASE 4: Verificación
 
-- Toda skill nueva debe explicar en espanol, al inicio, que problema resuelve y por que su tipo (`capability_uplift` o `encoded_preference`) importa.
+Auditar coherencia entre:
+- AGENTS.md ↔ skills ↔ configuración real ↔ comportamiento del código
 
-Siempre enlazar skills nuevas en `AGENTS.md`.
+**Si hay conflicto**: corregir inmediatamente (NO dejar documentación mentirosa)
 
-### Referencia obligatoria para crear/sincronizar skills (traducido)
+## FASE 5: Validación técnica
 
-- **`skill-creator`** (crear skills):
-  - Úsalo cuando necesites crear una skill nueva reusable para el proyecto.
-  - Define estructura estandar: `Skills/<nombre>/SKILL.md` (+ `assets/` y `references/` opcionales).
-  - Incluye frontmatter completo, reglas críticas, ejemplos mínimos y comandos.
-  - Evitá skills para casos triviales o one-off.
-  - Referencia local: `Skills/skill-creator/SKILL.md`
+**Mínimo obligatorio**:
+- Lint (ruff, golangci-lint, eslint, flake8, etc.)
+- Typecheck/build según stack
 
-- **`skill-sync`** (sincronizar metadatos en AGENTS):
-  - Úsalo después de crear/modificar una skill.
-  - Exige `metadata.scope` y `metadata.auto_invoke` en `SKILL.md`.
-  - Sincroniza automáticamente tablas de auto-invocación en `AGENTS.md`.
-  - Ejecutá el comando/script de sincronización que exista en el proyecto (por ejemplo el `sync.sh` del skill).
-  - Referencia local: `Skills/skill-sync/SKILL.md`
-
-### Migracion y compatibilidad
-
-Para no romper proyectos existentes:
-
-- Se permite leer `Skills/*.md` solo como formato legacy temporal.
-- Toda creacion nueva debe usar `Skills/<nombre>/SKILL.md`.
-- Si existe version legacy y version nueva, la version nueva es la fuente de verdad.
-- Unificar siempre casing de rutas en Linux: `Skills/` (S mayuscula).
-
-Nota de adaptación automática:
-
-- Esta guía es deliberadamente genérica.
-- La IA debe ajustar herramientas, comandos, paths y validadores al stack real detectado en el proyecto actual.
-
-## Fase 4 - Verificación de coherencia
-
-Auditar que no haya contradicciones entre:
-
-- AGENTS,
-- skills,
-- configuración real del proyecto,
-- comportamiento actual del código.
-
-Si hay conflicto, corregir de inmediato (no dejar “mentiras” en documentación).
-
-## Fase 5 - Validación técnica
-
-Ejecutar validaciones del proyecto (mínimo):
-
-- lint (o equivalente para el lenguaje: por ejemplo `ruff`, `golangci-lint`, `eslint`, `flake8`, etc.)
-- typecheck/build (según stack)
-
-Regla obligatoria de calidad:
-
-- Antes de cerrar una fase de cambios y antes de commitear, correr validadores de código del stack activo.
-- Si no existe linter configurado, definir uno o un mecanismo equivalente de análisis estático antes de continuar.
-
-Luego resumir cambios por grupos lógicos.
+**Regla dura**: antes de commitear, correr validadores del stack activo. Si no existe linter, definir uno antes de continuar.
 
 ## Entrega esperada
 
-- AGENTS en español, por capas y sin contradicciones.
-- Skills profesionales y personalizadas al proyecto.
-- Plan de migracion vivo en `MIGRACION.md` para evitar deuda de formato y reglas obsoletas.
-- Checklist operativo para mantener calidad.
-- Resumen claro de qué se creó, por qué y dónde.
+- AGENTS.md en español, por capas, sin contradicciones
+- Skills profesionales adaptadas al proyecto  
+- MIGRACION.md actualizado
+- Checklist operativo
+- Resumen claro: qué, por qué, dónde

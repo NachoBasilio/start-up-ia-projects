@@ -1,68 +1,105 @@
 # Quickstart (5 minutos)
 
-Guia corta para aplicar esta base en cualquier proyecto, con validacion local + CI y sin lock-in.
+Aplicá este framework a cualquier proyecto en minutos. Validación local + CI, sin lock-in.
 
-## Paso 0 (OBLIGATORIO) - Confirmar contexto antes de tocar nada
+## Antes de tocar NADA (OBLIGATORIO)
 
-Antes de analizar o proponer cambios, confirma explicitamente:
+Confirma explícitamente con tu agente:
+- **Tipo de proyecto**: web, API, mobile, desktop, librería, monorepo
+- **Arquitectura**: capas, hexagonal, clean, modular, feature-first
 
-- tipo de proyecto (web, API, mobile, desktop, libreria, monorepo, etc.),
-- arquitectura esperada/existente (capas, hexagonal, clean, modular, feature-first, etc.).
+⚠️ **Si no está claro**: marca como "suposición a validar", NO cierres setup sin confirmación.
 
-Si no esta claro, deja una hipotesis marcada como `suposicion a validar` y no cierres AGENTS/skills finales hasta confirmarlo.
+## 1. Copiar base
 
-## 1) Copia base al proyecto objetivo
-
-Copia estos archivos/carpetas al repo donde vas a trabajar:
-
-- `START-UP.md`
-- `AGENTS.md`
-- `Skills/`
-- `scripts/validate-skills.sh`
-
-## 2) Abri el proyecto con tu agente
-
-Usa OpenCode o Claude Code sobre el repo objetivo.
-
-Prompt recomendado:
-
-```text
-Usa START-UP.md como protocolo. Analiza el repo completo, propone AGENTS.md por capas,
-y crea/ajusta skills en formato Skills/<nombre>/SKILL.md segun contexto real.
-No inventes comandos. Mantene reglas verificables y anti-ruido.
+En tu proyecto target:
+```bash
+# Copiar estos archivos/carpetas desde start-up-proyecto/
+cp START-UP.md tu-proyecto/
+cp AGENTS.md tu-proyecto/  
+cp -r Skills/ tu-proyecto/
+cp -r scripts/ tu-proyecto/
 ```
 
-## 3) Crea skills con tipado correcto
+## 2. Configurar agente
 
-Toda skill nueva debe tener:
+**OpenCode/Claude** sobre el proyecto target.
 
-- `metadata.skill_type: capability_uplift` (capacidad temporal, revisable)
-- o `metadata.skill_type: encoded_preference` (preferencia estable)
+**Prompt recomendado**:
+```
+Usa START-UP.md como protocolo. Analiza este repo completo, adapta AGENTS.md 
+al contexto real y crea skills en formato Skills/<nombre>/SKILL.md.
 
-Regla clave:
+Contexto del proyecto: [web app, API REST, etc.]
+Arquitectura: [capas, hexagonal, etc.]
 
-- Si es `capability_uplift`, incluye `metadata.review_by`.
+Mantener reglas verificables y anti-ruido. No inventar comandos.
+```
 
-## 4) Valida en local
+## 3. Skills con taxonomía correcta
 
-Desde el proyecto objetivo:
+Toda skill nueva debe declarar:
+
+**Temporal** (`capability_uplift`):
+```yaml
+skill_type: capability_uplift
+review_by: "2026-06-01"  # OBLIGATORIO
+```
+
+**Estable** (`encoded_preference`):
+```yaml  
+skill_type: encoded_preference
+# review_by opcional
+```
+
+**Regla**: si es `capability_uplift`, SIEMPRE incluir `review_by`.
+
+## 4. Validar setup
 
 ```bash
-./scripts/validate-skills.sh --dry-run
-./scripts/validate-skills.sh
+# Desde tu proyecto
+./scripts/validate-skills.sh --dry-run  # Solo auditoría
+./scripts/validate-skills.sh            # Validación completa
 ```
 
-Interpretacion:
+**Interpretación**:
+- ✅ `0`: setup correcto
+- ❌ `1`: errores a corregir
 
-- `0`: contrato OK
-- `1`: hay errores a corregir
+## 5. Iterar hasta que funcione
 
-## 5) Ajusta y repite
+Si falla validación:
+1. Revisar errores en output del script
+2. Corregir `AGENTS.md` o `Skills/*/SKILL.md`
+3. Re-validar
 
-Si falla algo, corregi `AGENTS.md` o `Skills/*/SKILL.md` y vuelve a validar.
+**Errores comunes**:
+- Falta `metadata.review_by` en `capability_uplift`
+- Falta frontmatter obligatorio
+- Referencias a paths que no existen
+
+## Ejemplos de uso
+
+**React app**:
+```
+Contexto: SPA React con TypeScript, arquitectura por features
+Stack: Vite + Vitest + ESLint + Prettier
+```
+
+**API Node.js**:
+```
+Contexto: API REST con Express, arquitectura hexagonal
+Stack: Node.js + TypeScript + Jest + Docker
+```
+
+**Librería Python**:
+```
+Contexto: Librería de data science, arquitectura modular
+Stack: Python + pytest + ruff + mypy
+```
 
 ## Referencias
 
-- `README.md` - vision general
-- `START-UP.md` - protocolo completo
-- `MIGRACION.md` - plan de evolucion y retiro de legacy
+- [README.md](README.md) - Visión general y filosofía
+- [START-UP.md](START-UP.md) - Protocolo completo paso a paso
+- [MIGRACION.md](MIGRACION.md) - Plan de evolución y mantenimiento

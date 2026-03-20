@@ -1,65 +1,54 @@
 # Start-up con IA que no sea un desastre
 
-Después de ver mil proyectos donde la IA genera código que "funciona" pero es un quilombo mantenible, armé esta plantilla para empezar proyectos con agentes de manera seria.
+Framework para que agentes trabajen en tu proyecto sin romper todo. La IA entiende tu contexto antes de proponer cambios, valida que funciona, y no te genera código que "anda" pero es imposible de mantener.
 
-La idea es simple: que la IA entienda realmente tu proyecto antes de tocar una línea de código, que proponga cosas que tengan sentido con tu stack, y que valide que no rompió nada antes de mandarte el commit.
+## Quickstart (5 minutos)
 
-## Lo que encontrás acá
+1. Copia `START-UP.md`, `AGENTS.md`, `Skills/` y `scripts/` a tu proyecto
+2. Ejecuta: `./scripts/validate-skills.sh --dry-run`
+3. Usa tu agente con: *"Usa START-UP.md como protocolo, analiza el repo y configura AGENTS/Skills para este contexto"*
 
-**START-UP.md** → El protocolo completo por fases. Lo que realmente necesitás para que un agente no haga cualquier cosa en tu repo.
+Ver [QUICKSTART.md](QUICKSTART.md) para detalles.
 
-**Skills/** → Templates para crear skills que no sean genéricas. Divididas en dos tipos:
-- `capability_uplift`: capacidades técnicas que van a quedar obsoletas cuando los modelos mejoren
-- `encoded_preference`: tus preferencias de trabajo que no cambian porque OpenAI saque GPT-X
+## Estructura del framework
 
-**MIGRACION.md** → Cómo migrar sin romper todo si ya tenés algo armado.
+- **[START-UP.md](START-UP.md)** → Protocolo completo por fases para configurar cualquier proyecto
+- **[AGENTS.md](AGENTS.md)** → Reglas mínimas y verificables para agentes (anti-ruido)
+- **Skills/<nombre>/SKILL.md** → Templates con dos tipos:
+  - `capability_uplift`: capacidades técnicas temporales (pueden quedar obsoletas)
+  - `encoded_preference`: preferencias de equipo estables (no caducan)
+- **[MIGRACION.md](MIGRACION.md)** → Plan de migración y mantenimiento
+- **scripts/validate-skills.sh** → Validador automático de estructura y metadata
 
-**scripts/validate-skills.sh** → Validador que realmente funciona, no como esos linters que "pasan" pero el código es una mierda.
+## ¿Por qué dos tipos de skills?
 
-**tests/** → Tests del validador porque sí, hasta los scripts de validación necesitan tests.
+**capability_uplift**: Agregan algo técnico que el modelo no sabe hacer todavía. Van a quedar obsoletas cuando GPT-5/Claude-Next las hagan nativas. Ejemplo: "parsear logs de Kubernetes" → eventualmente los modelos van a hacer esto out-of-the-box.
 
-**.github/workflows/** → CI que no rompe, enforcement automático sin ser un pain in the ass.
+**encoded_preference**: TUS reglas de trabajo. Cómo nombrás variables, qué patterns usás, estructura de commits. Estas NO caducan porque son tuyas, no del modelo.
 
-## Skills: el formato que no te va a cagar
+## Regla fundamental
 
-Acá uso `Skills/<skill-name>/SKILL.md` como estándar. 
+No importa tu stack (React, Go, Python, lo que sea):
 
-Los archivos viejos `Skills/*.md` los mantengo por compatibilidad, pero la verdad está siempre en el subdirectorio. Cuando tengas tiempo, migralos.
+- **Linter configurado** y ejecutándose automáticamente
+- **Validación antes de commit** (el script ya lo hace)
+- **Tests que realmente validen algo**
 
-### Por qué dos tipos de skills
+Sin esto, cualquier IA genera código que "funciona" en su máquina pero explota en producción.
 
-Después de romper algunos proyectos, me di cuenta que hay skills que:
+## Filosofía
 
-- **capability_uplift**: Agregan algo técnico que el modelo no sabe hacer bien todavía. Estas van a quedar obsoletas cuando GPT-5 o Claude-Next las hagan nativas.
+Framework genérico a propósito. No te dice "usa React + TypeScript + Tailwind" porque la IA debe adaptarse a TU stack, TU arquitectura, TU forma de trabajar.
 
-- **encoded_preference**: Son TUS reglas de trabajo. Cómo querés que se nombre las variables, qué patterns usás, etc. Estas no caducan porque son tuyas, no del modelo.
+He visto demasiados proyectos donde el agente propone "mejores prácticas" que no tienen nada que ver con lo que ya funciona. Este approach **fuerza a la IA a entender primero, proponer después**.
 
-## La regla que no se negocia
+## Créditos
 
-No importa si usás React, Go, Python o COBOL. SIEMPRE:
-
-- **Linter configurado** y corriendo
-- **Validaciones antes de commit** 
-- **Tests que realmente prueban algo**
-
-Sin esto, cualquier IA va a generar código que "funciona" en su máquina pero es un desastre en producción.
-
-## La filosofía detrás de esto
-
-Este template es genérico a propósito. No te va a decir "usá React con TypeScript y Tailwind" porque no soy idiota. La IA tiene que adaptarse a TU stack, TU forma de trabajar, TU arquitectura.
-
-He visto demasiados proyectos donde el agente propone "mejores prácticas" que no tienen nada que ver con lo que ya está funcionando. Este approach fuerza a la IA a entender primero, proponer después.
-
-## Créditos donde corresponde
-
-Esto lo armé yo, **Ignacio Nicolas Basilio Buracco (Ignadev)**, después de años rompiendo y arreglando código en QA Automation.
+Creado por **Ignacio Nicolas Basilio Buracco (Ignadev)** basado en años de QA Automation y conceptos de [Gentleman Programming](https://www.youtube.com/@gentlemanprogramming).
 
 - Web: [ignadev.com](https://ignadev.com/)
 - GitHub: [@NachoBasilio](https://github.com/NachoBasilio)
-- LinkedIn: [ignacio-nicolas-basilio-buracco](https://www.linkedin.com/in/ignacio-nicolas-basilio-buracco/)
-
-Pero la base conceptual la saqué de todo lo que aprendí viendo [Gentleman Programming](https://www.youtube.com/@gentlemanprogramming). Si no los conocés, están haciendo el mejor contenido en español sobre desarrollo serio.
 
 ---
 
-*PD: Si esto te sirvió y lo mejorás, mandá un PR. Si lo usás y algo no funciona, abrí un issue. Si no te gusta, está todo bien, probably no es para vos.*
+*Si esto te sirvió, mandá un PR. Si algo no funciona, abrí un issue.*
