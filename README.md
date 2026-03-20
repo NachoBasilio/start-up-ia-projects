@@ -1,120 +1,65 @@
-# Start-up IA Projects
+# Start-up con IA que no sea un desastre
 
-Plantilla operativa para arrancar proyectos con IA de forma profesional, auditable y sin humo.
+Después de ver mil proyectos donde la IA genera código que "funciona" pero es un quilombo mantenible, armé esta plantilla para empezar proyectos con agentes de manera seria.
 
-Este repositorio define un flujo genérico para que cualquier agente:
+La idea es simple: que la IA entienda realmente tu proyecto antes de tocar una línea de código, que proponga cosas que tengan sentido con tu stack, y que valide que no rompió nada antes de mandarte el commit.
 
-- entienda primero el contexto real del proyecto,
-- proponga reglas y skills consistentes con el código,
-- y valide calidad técnica antes de cerrar cambios.
+## Lo que encontrás acá
 
-## Qué incluye
+**START-UP.md** → El protocolo completo por fases. Lo que realmente necesitás para que un agente no haga cualquier cosa en tu repo.
 
-- `START-UP.md`  
-  Protocolo principal por fases para diseñar `AGENTS.md` y skills en cualquier repo.
-- `Skills/skill-creator/SKILL.md`  
-  Skill base para crear skills nuevas en formato moderno.
-- `Skills/skill-sync/SKILL.md`  
-  Skill base para auditar y sincronizar metadatos de skills.
-- `Skills/*/assets` y `Skills/*/references`  
-  Recursos opcionales por skill (plantillas, scripts, guias).
-- `MIGRACION.md`  
-  Plan por fases para mantener AGENTS y skills en formato moderno sin arrastrar deuda legacy.
-- `QUICKSTART.md`  
-  Guia corta para aplicarlo en un repo nuevo en 5 minutos.
-- `scripts/validate-skills.sh`  
-  Validador canonico del contrato de skills y coherencia documental minima.
-- `tests/validate-skills.test.sh`  
-  Suite Bash del validador para cubrir casos happy path, edge y negativos.
-- `.github/workflows/validate-skills.yml`  
-  Enforcement en CI para `push` y `pull_request`.
+**Skills/** → Templates para crear skills que no sean genéricas. Divididas en dos tipos:
+- `capability_uplift`: capacidades técnicas que van a quedar obsoletas cuando los modelos mejoren
+- `encoded_preference`: tus preferencias de trabajo que no cambian porque OpenAI saque GPT-X
 
-## Formato moderno de skills
+**MIGRACION.md** → Cómo migrar sin romper todo si ya tenés algo armado.
 
-Este repo usa como formato canonico:
+**scripts/validate-skills.sh** → Validador que realmente funciona, no como esos linters que "pasan" pero el código es una mierda.
 
-`Skills/<skill-name>/SKILL.md`
+**tests/** → Tests del validador porque sí, hasta los scripts de validación necesitan tests.
 
-Compatibilidad:
+**.github/workflows/** → CI que no rompe, enforcement automático sin ser un pain in the ass.
 
-- `Skills/*.md` queda como legacy temporal para no romper integraciones.
-- La fuente de verdad siempre es `Skills/*/SKILL.md`.
+## Skills: el formato que no te va a cagar
 
-### Tipos de skills (clave para arrancar bien)
+Acá uso `Skills/<skill-name>/SKILL.md` como estándar. 
 
-- `capability_uplift`: agrega capacidades tecnicas que pueden quedar viejas cuando los modelos mejoran; deben revisarse y caducar cuando ya no aportan.
-- `encoded_preference`: codifica preferencias estables del equipo/producto; no caducan por mejora de modelo, solo cambian si cambia tu forma de trabajar.
+Los archivos viejos `Skills/*.md` los mantengo por compatibilidad, pero la verdad está siempre en el subdirectorio. Cuando tengas tiempo, migralos.
 
-## Flujo recomendado
+### Por qué dos tipos de skills
 
-1. Copiá `START-UP.md` en el repo objetivo.
-2. Ejecutá el Paso 0 obligatorio: preguntar tipo de proyecto y arquitectura.
-3. Hacé análisis completo del repo (Fase 1).
-4. Diseñá `AGENTS.md` por capas (Fase 2).
-5. Diseñá/ajustá skills (Fase 3), apoyándote en `Skills/`.
-6. Verificá coherencia técnica y documental (Fase 4).
-7. Ejecutá validaciones técnicas del stack activo (Fase 5).
-8. Ejecutá validacion de contrato de skills (comando canonico): `./scripts/validate-skills.sh`.
+Después de romper algunos proyectos, me di cuenta que hay skills que:
 
-## Uso local (sin lock-in)
+- **capability_uplift**: Agregan algo técnico que el modelo no sabe hacer bien todavía. Estas van a quedar obsoletas cuando GPT-5 o Claude-Next las hagan nativas.
 
-Este repo esta pensado para uso directo por cualquier persona o equipo:
+- **encoded_preference**: Son TUS reglas de trabajo. Cómo querés que se nombre las variables, qué patterns usás, etc. Estas no caducan porque son tuyas, no del modelo.
 
-1. Clona o descarga este repositorio.
-2. Copia `START-UP.md`, `AGENTS.md`, `Skills/` y `scripts/validate-skills.sh` al proyecto objetivo.
-3. Si queres enforcement en CI, copia tambien `.github/workflows/validate-skills.yml`.
-4. Abri ese proyecto con OpenCode o Claude Code.
-5. Pedi crear/ajustar `AGENTS.md` y skills segun el contexto real del repo.
-6. Corre localmente el validador canonico:
+## La regla que no se negocia
 
-```bash
-./scripts/validate-skills.sh
-```
+No importa si usás React, Go, Python o COBOL. SIEMPRE:
 
-Ejemplo de salida esperada:
+- **Linter configurado** y corriendo
+- **Validaciones antes de commit** 
+- **Tests que realmente prueban algo**
 
-```text
-[INFO] Validando skills en /ruta/al/repo
-[INFO] Validando /ruta/al/repo/Skills/skill-creator/SKILL.md
-[INFO] Validando /ruta/al/repo/Skills/skill-sync/SKILL.md
+Sin esto, cualquier IA va a generar código que "funciona" en su máquina pero es un desastre en producción.
 
-Resumen: 0 error(es), 0 warning(s)
-```
+## La filosofía detrás de esto
 
-Si copias el workflow incluido, tambien tenes enforcement en CI (GitHub Actions) para `push` y `pull_request`.
+Este template es genérico a propósito. No te va a decir "usá React con TypeScript y Tailwind" porque no soy idiota. La IA tiene que adaptarse a TU stack, TU forma de trabajar, TU arquitectura.
 
-No requiere configuracion de plataforma propietaria para funcionar.
+He visto demasiados proyectos donde el agente propone "mejores prácticas" que no tienen nada que ver con lo que ya está funcionando. Este approach fuerza a la IA a entender primero, proponer después.
 
-## Validacion automatizada
+## Créditos donde corresponde
 
-- Validador canonico: `./scripts/validate-skills.sh`
-- Auditoria rapida: `./scripts/validate-skills.sh --dry-run`
-- Tests del validador: `./tests/validate-skills.test.sh`
+Esto lo armé yo, **Ignacio Nicolas Basilio Buracco (Ignadev)**, después de años rompiendo y arreglando código en QA Automation.
 
-## Regla de calidad no negociable
+- Web: [ignadev.com](https://ignadev.com/)
+- GitHub: [@NachoBasilio](https://github.com/NachoBasilio)
+- LinkedIn: [ignacio-nicolas-basilio-buracco](https://www.linkedin.com/in/ignacio-nicolas-basilio-buracco/)
 
-Para cualquier lenguaje o stack, SIEMPRE:
+Pero la base conceptual la saqué de todo lo que aprendí viendo [Gentleman Programming](https://www.youtube.com/@gentlemanprogramming). Si no los conocés, están haciendo el mejor contenido en español sobre desarrollo serio.
 
-- definir y ejecutar un linter (o equivalente),
-- ejecutar validaciones antes de cerrar fases,
-- ejecutar validaciones antes de cada commit.
+---
 
-## Enfoque
-
-Esta base es genérica a propósito. La IA debe adaptar comandos, paths, checkers y decisiones al contexto real de cada proyecto.
-
-## Autor
-
-Creado por **Ignacio Nicolas Basilio Buracco (Ignadev)**, basado en experiencia real en QA Automation y desarrollo.
-
-- Sitio: `https://ignadev.com/`
-- GitHub: `https://github.com/NachoBasilio`
-- LinkedIn: `https://www.linkedin.com/in/ignacio-nicolas-basilio-buracco/`
-- Email: `ignacio.n.basilio.b@gmail.com`
-
-## Inspiración
-
-Este enfoque está fuertemente influenciado por lo aprendido en la comunidad y contenidos de **Gentleman Programming**.
-
-- YouTube: `https://www.youtube.com/@gentlemanprogramming`
-- GitHub: `https://github.com/Gentleman-Programming`
+*PD: Si esto te sirvió y lo mejorás, mandá un PR. Si lo usás y algo no funciona, abrí un issue. Si no te gusta, está todo bien, probably no es para vos.*
